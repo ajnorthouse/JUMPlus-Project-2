@@ -2,7 +2,8 @@
   "name": "jumplus-project-2",
   "version": "1.0.0",
   "description": "Mock ATM banking console app.",
-  "main": "index.js",
+  "main": "dollarsbank_app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
