@@ -1,0 +1,24 @@
+{
+  "name": "jumplus-project-2",
+  "version": "1.0.0",
+  "description": "Mock ATM banking console app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajnorthouse/JUMPlus-Project-2.git"
+  },
+  "keywords": [
+    "demonstrative",
+    "console",
+    "bank"
+  ],
+  "author": "Alexandré Northouse",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ajnorthouse/JUMPlus-Project-2/issues"
+  },
+  "homepage": "https://github.com/ajnorthouse/JUMPlus-Project-2#readme"
+}
