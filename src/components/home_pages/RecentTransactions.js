@@ -12,19 +12,19 @@ export default function RecentTransactions(props) {
 
       <ul>
         <li>
-          {props.login.log[0]}
+          <p>{props.login.log[0]}</p>
         </li>
         <li>
-          {props.login.log[1]}
+          <p>{props.login.log[1]}</p>
         </li>
         <li>
-          {props.login.log[2]}
+          <p>{props.login.log[2]}</p>
         </li>
         <li>
-          {props.login.log[3]}
+          <p>{props.login.log[3]}</p>
         </li>
         <li>
-          {props.login.log[4]}
+          <p>{props.login.log[4]}</p>
         </li>
       </ul>
 			

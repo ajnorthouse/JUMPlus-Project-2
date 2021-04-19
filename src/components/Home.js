@@ -9,7 +9,7 @@ export default function Home(props) {
 
 	return (
 		<div className="home">
-			<p>Home Page</p>
+			<h1>Home Page</h1>
 			<Link to="/home/deposit">Deposit Funds</Link>
 			<br/>
 			<Link to="/home/withdraw">Withdraw Funds</Link>
