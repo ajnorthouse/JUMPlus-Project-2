@@ -46,7 +46,7 @@ export default function Login(props) {
         <br/>
 
         <label htmlFor="password-input">Password:</label>
-        <input type="text" id="password-input" name="password-input"
+        <input type="password" id="password-input" name="password-input"
           value={password} onChange={event => setPassword(event.target.value)}></input>
         
         <br/>
