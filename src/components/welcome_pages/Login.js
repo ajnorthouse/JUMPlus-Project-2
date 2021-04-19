@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
+import { isLoggedIn } from "../../helpers/CheckLogin";
 
 export default function Login(props) {
     //State constants
@@ -35,7 +36,11 @@ export default function Login(props) {
       }
     }
 
-  return (
+  //Checks if a user is logged in before rendering
+  return (isLoggedIn(props.login)) ?
+    <Redirect to="/home"/> : 
+
+	//normal render
     <div className="login">
       <h1>Login Page</h1>
       <form>
@@ -57,5 +62,5 @@ export default function Login(props) {
       {redirect}
       <Link to="/welcome/">Go Back</Link>
     </div>
-  );
+  ;
 }

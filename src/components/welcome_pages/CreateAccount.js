@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { isLoggedIn } from "../../helpers/CheckLogin";
 
 export default function CreateAccount(props) {
   //State constants
@@ -9,8 +10,7 @@ export default function CreateAccount(props) {
   const [name, setName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [balance, setBalance] = useState(0.00);
-  const [error, setError] = useState(<></>);
-  const [redirect, setRedirect] = useState(<></>);
+  const [result, setResult] = useState(<></>);
 
   //form event
   const handleSubmit = (event) => {
@@ -35,17 +35,31 @@ export default function CreateAccount(props) {
 
         props.setUsers(props.users);
         console.log(props.users);
-        setRedirect(<p className="is-success">Successfully created user!</p>);
-
+        setResult(<p className="is-success">Successfully created user '{userId}'!</p>);
+        clearInputs();
       } else {
-        setError(<p className="is-error">Your passwords don't match!</p>);
+        setResult(<p className="is-error">Your passwords don't match!</p>);
       }
     } else {
-    setError(<p className="is-error">That username already exists!</p>);
+      setResult(<p className="is-error">That username already exists!</p>);
     }
   }
 
-  return (
+  //small function to clear all the inputs after successful insertion
+  const clearInputs = ()=> {
+    setUserId("");
+    setPassword1("");
+    setPassword2("");
+    setName("");
+    setContactNumber("");
+    setBalance(0.00);
+  }
+
+  //Checks if a user is logged in before rendering
+  return (isLoggedIn(props.login)) ?
+    <Redirect to="/home"/> : 
+
+	//normal render
     <div className="create-account">
       <h1>Create Account</h1>
       <form>
@@ -83,9 +97,8 @@ export default function CreateAccount(props) {
         
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
-      {error}
-      {redirect}
+      {result}
       <Link to="/welcome/">Go Back</Link>
     </div>
-  );
+  ;
 }
