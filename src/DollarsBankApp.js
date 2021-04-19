@@ -13,14 +13,15 @@ import DisplayInfo from './components/home_pages/DisplayInfo';
 import RecentTransactions from './components/home_pages/RecentTransactions';
 import SignOut from './components/home_pages/SignOut';
 import TransferFunds from './components/home_pages/TransferFunds';
+import { initialLogUpdate } from './helpers/UpdateLog';
 
 function DollarsBankApp() {
   const [users, setUsers] = useState(new Map());
   const [login, setLogin] = useState([null]);
 
-  //how to add map entry:
-  users.set('FooBar', {username:"FooBar", password:"password", name:"John Smith", contactNumber:"5008888888", balance:100.00, log:["Dead", "Lol"]});
-  users.set('BarFoo', {username:"BarFoo", password:"drowssap", name:"Jane Doe", contactNumber:"8885005000", balance:200.00, log:["Alive", "Deadpan"]});
+  //how to add map entry:E
+  users.set('FooBar', {username:"FooBar", password:"password", name:"John Smith", contactNumber:"5008888888", balance:100.00, log:[initialLogUpdate(100.00)]});
+  users.set('BarFoo', {username:"BarFoo", password:"drowssap", name:"Jane Doe", contactNumber:"8885005000", balance:200.00, log:[initialLogUpdate(200.00)]});
 
   return (
     <div className="App">

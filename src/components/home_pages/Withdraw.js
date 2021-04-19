@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isLoggedIn } from "../../helpers/CheckLogin";
+import { withdrawLogUpdate } from "../../helpers/UpdateLog";
 
 export default function Withdraw(props) {
   //State Constants
   const [withdrawl, setWithdrawl] = useState(0.00);
   const [result, setResult] = useState(<></>);
-  // TODO: Update Log
 
 
   //form submit event
@@ -17,8 +17,9 @@ export default function Withdraw(props) {
 
     //Math.round((num + Number.EPSILON) * 100) / 100
 
-    //Removes the withdrawl from the account
+    //Removes the withdrawl from the account & updates log
     props.login.balance -= withdrawl;
+	props.login.log.push(withdrawLogUpdate(withdrawl, props.login.balance));
     props.users.set(props.login.username, props.login);
 
     //updates the users map as well
