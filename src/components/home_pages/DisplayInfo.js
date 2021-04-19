@@ -33,7 +33,7 @@ export default function DisplayInfo(props) {
 
         <li>
           <h2>Current Balance:</h2>
-          <p>{props.login.balance.toFixed(2)}</p>
+          <p>${props.login.balance.toFixed(2)}</p>
         </li>
 
         <li>
