@@ -1,37 +1,40 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isLoggedIn } from "../../helpers/CheckLogin";
+import { transferLogUpdate } from "../../helpers/UpdateLog";
 
 export default function TransferFunds(props) {
   //State Constants
   const [transfer, setTransfer] = useState(0.00);
   const [recepient, setRecepient] = useState("");
   const [result, setResult] = useState(<></>);
-  // TODO: Update Log
 
 
   //form submit event
   // TODO: Check for potentially negative balances
   // TODO: Check if other user exists
+  // TODO: Check for duplicate username
   const handleSubmit = (event) => {
     //immediately stops default behavior
     event.preventDefault();
 
     //Math.round((num + Number.EPSILON) * 100) / 100
 
-    //Removes the money from the user account
+    //Removes the money from the user account & updates logE
     props.login.balance -= transfer;
+	props.login.log.push(transferLogUpdate('sender', transfer, recepient, props.login.balance));
     props.users.set(props.login.username, props.login);
 
-    //Adds the money to the recepient account
+    //Adds the money to the recepient account & updates their log
     let recepientAccount = props.users.get(recepient);
     recepientAccount.balance += transfer;
+	props.login.log.push(transferLogUpdate('receiver', transfer, props.login.username, recepientAccount.balance));
     props.users.set(recepientAccount.username, recepientAccount);
 
-    //updates the users map as well
+    //finally, updates the users map
     props.setLogin(props.login);
     props.setUsers(props.users);
-    setResult(<p className="is-success">Funds successfully withdrawn!</p>);
+    setResult(<p className="is-success">Funds successfully transferred!</p>);
   }
 
   

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isLoggedIn } from "../../helpers/CheckLogin";
+import { initialLogUpdate } from "../../helpers/UpdateLog";
 
 export default function CreateAccount(props) {
   //State constants
@@ -30,7 +31,7 @@ export default function CreateAccount(props) {
           name:name,
           contactNumber:contactNumber,
           balance:balance,
-          log:["Dead", "Lol"]
+          log:[initialLogUpdate(balance)]
         });
 
         props.setUsers(props.users);
@@ -77,7 +78,7 @@ export default function CreateAccount(props) {
           value={password2} onChange={event => setPassword2(event.target.value)}></input>
         <br/><br/>
       
-        <label htmlFor="name-input">User Id:</label>
+        <label htmlFor="name-input">Name:</label>
         <input type="text" id="name-input" name="name-input"
           value={name} onChange={event => setName(event.target.value)}></input>
         
@@ -91,7 +92,7 @@ export default function CreateAccount(props) {
       
         <label htmlFor="balance-input">Starting Deposit/Balance:</label>
         <input type="number" id="balance-input" name="balance-input"
-          value={balance} onChange={event => setBalance(event.target.value)}></input>
+          value={balance} onChange={event => setBalance(Number(event.target.value))}></input>
         
         <br/><br/>
         
