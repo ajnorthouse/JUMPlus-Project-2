@@ -54,6 +54,7 @@ export default function Login(props) {
       </form>
       {error}
       {redirect}
+      <Link to="/welcome/">Go Back</Link>
     </div>
   );
 }
