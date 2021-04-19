@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Login(props) {
     //State constants
