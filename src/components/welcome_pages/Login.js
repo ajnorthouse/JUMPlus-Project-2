@@ -23,21 +23,20 @@ export default function Login(props) {
         if (tempUser.password === password) {
           //lifts up login state as the found user
           props.setLogin(tempUser);
-          console.log(tempUser);
 
           //redirects to home page
           setRedirect(<Redirect to="/home/"/>);
         } else {
-          setError(<p className="error">Password doesn't match!</p>);
+          setError(<p className="is-error">Password doesn't match!</p>);
         }
       } else {
-        setError(<p className="error">Username not found!</p>);
+        setError(<p className="is-error">Username not found!</p>);
       }
     }
 
   return (
     <div className="login">
-      <p>Login Page</p>
+      <h1>Login Page</h1>
       <form>
         <label htmlFor="userId-input">User Id:</label>
         <input type="text" id="userId-input" name="userId-input"
