@@ -16,28 +16,43 @@ import SignOut from './components/home_pages/SignOut';
 import TransferFunds from './components/home_pages/TransferFunds';
 
 function DollarsBankApp() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(new Map());
   const [login, setLogin] = useState([]);
+
+  //how to add map entry:
+  users.set('FooBar', {username:"FooBar", password:"password", name:"John Smith", contactNumber:"5008888888", balance:100.00, log:["Dead", "Lol"]});
+  users.set('BarFoo', {username:"BarFoo", password:"drowssap", name:"Jane Doe", contactNumber:"8885005000", balance:0.01, log:["Alive", "Deadpan"]});
+
   return (
     <div className="App">
       <Router>
         <main>
           <Switch>
-            <Route path="/welcome/login" component={Login}><Login users={users} setLogin={setLogin}/></Route>
-            <Route path="/welcome/createAccount" component={CreateAccount}><CreateAccount users={users} setUsers={setUsers}/></Route>
+            {/* Welcome pages */}
+            <Route path="/welcome/login" component={Login}><Login
+              users={users} setLogin={setLogin}/></Route>
+            <Route path="/welcome/createAccount" component={CreateAccount}><CreateAccount
+              users={users} setUsers={setUsers}/></Route>
             <Route path="/welcome/" component={Welcome}><Welcome/></Route>
             
-            
-            <Route path="/home/signout" component={SignOut}><SignOut/></Route>
-            <Route path="/home/transferFunds" component={TransferFunds}><TransferFunds/></Route>
-            <Route path="/home/recentTransactions" component={RecentTransactions}><RecentTransactions/></Route>
-            <Route path="/home/displayInfo" component={DisplayInfo}><DisplayInfo/></Route>
-            <Route path="/home/deposit" component={Deposit}><Deposit/></Route>
-            <Route path="/home/withdraw" component={Withdraw}><Withdraw/></Route>
+            {/* Home pages */}
+            <Route path="/home/signout" component={SignOut}><SignOut
+              setLogin={setLogin}/></Route>
+            <Route path="/home/transferFunds" component={TransferFunds}><TransferFunds
+              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
+            <Route path="/home/recentTransactions" component={RecentTransactions}><RecentTransactions
+              login={login}/></Route>
+            <Route path="/home/displayInfo" component={DisplayInfo}><DisplayInfo
+              login={login}/></Route>
+            <Route path="/home/deposit" component={Deposit}><Deposit
+              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
+            <Route path="/home/withdraw" component={Withdraw}><Withdraw
+              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
             <Route path="/home/" component={Home}><Home/></Route>
 
-            
-            <Route path="/" component={SignOut}><SignOut/></Route>
+            {/* Default Website URL Behavior */}
+            <Route path="/" component={SignOut}><SignOut
+              setLogin={setLogin}/></Route>
           </Switch>
         </main>
       </Router>
