@@ -29,10 +29,11 @@ function DollarsBankApp() {
           <Switch>
             {/* Welcome pages */}
             <Route path="/welcome/login"><Login
-              users={users} setLogin={setLogin}/></Route>
+              login={login} users={users} setLogin={setLogin}/></Route>
             <Route path="/welcome/createAccount"><CreateAccount
-              users={users} setUsers={setUsers}/></Route>
-            <Route path="/welcome/"><Welcome/></Route>
+              login={login} users={users} setUsers={setUsers}/></Route>
+            <Route path="/welcome/"><Welcome
+              login={login}/></Route>
             
             {/* Home pages */}
             <Route path="/home/deposit"><Deposit

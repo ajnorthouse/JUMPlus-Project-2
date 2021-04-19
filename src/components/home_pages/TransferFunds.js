@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { isLoggedIn } from "../../helpers/CheckLogin";
 
 export default function TransferFunds(props) {
-  //State constaEnts
+  //State Constants
   const [transfer, setTransfer] = useState(0.00);
   const [recepient, setRecepient] = useState("");
-  const [error, setError] = useState(<></>);
-  const [redirect, setRedirect] = useState(<></>);
-
-
-  // TODO: Check for logged-in user
+  const [result, setResult] = useState(<></>);
   // TODO: Update Log
 
 
@@ -34,11 +31,15 @@ export default function TransferFunds(props) {
     //updates the users map as well
     props.setLogin(props.login);
     props.setUsers(props.users);
-    setError(<p>{props.login.balance}</p>);
-    setRedirect(<p>Success! :D</p>);
+    setResult(<p className="is-success">Funds successfully withdrawn!</p>);
   }
 
-  return (
+  
+  //Checks if a user is logged in before rendering
+  return (!isLoggedIn(props.login)) ?
+    <Redirect to="/welcome"/> : 
+
+	//normal render
     <div className="transfer-funds">
       <h1>Transfer Funds</h1>
       <form>
@@ -56,9 +57,8 @@ export default function TransferFunds(props) {
         
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
-      {error}
-      {redirect}
+      {result}
       <Link to="/home/">Home</Link>
     </div>
-  );
+  ;
 }

@@ -1,22 +1,23 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router";
+import { isLoggedIn } from "../../helpers/CheckLogin";
 
 export default function SignOut(props) {
 
   //Sets login to [null] on the redirect
-	useEffect(() => {
+  useEffect(() => {
     //hook equivalent of "componentWillUnmount "
     return () => {
-      if (props.login.length < 2) {
+      if (isLoggedIn(props.login)) {
         props.setLogin([null]);
       }
     }
   }, [props]);
-
-	return (
-		<div className="sign-out">
-			<h1>Sign Out Page</h1>
-			<Redirect to="/welcome"/>
-		</div>
-	);
+  //Checks if a user is logged in before rendering
+  return (
+    <div className="sign-out">
+      <h1>Sign Out Page</h1>
+      <Redirect to="/welcome"/>
+    </div>
+  );
 }

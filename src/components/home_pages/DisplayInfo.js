@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { isLoggedIn } from "../../helpers/CheckLogin";
 
 export default function DisplayInfo(props) {
 
+  //Checks if a user is logged in before rendering
+  return (!isLoggedIn(props.login)) ?
+    <Redirect to="/welcome"/> : 
 
-  // TODO: Check for logged-in user
-
-
-	return (
-		<div className="recent_transactions">
-			<h1>Recent Transactions Page</h1>
+	//normal render
+    <div className="recent_transactions">
+      <h1>Recent Transactions Page</h1>
 
       <ul>
         <li>
@@ -41,10 +42,10 @@ export default function DisplayInfo(props) {
           <p>{props.login.log.length}</p>
         </li>
       </ul>
-			
+      
       <Link to="/home/">Home</Link>
-		</div>
-	);
+    </div>
+  ;
 }
 
 

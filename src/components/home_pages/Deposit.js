@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { isLoggedIn } from "../../helpers/CheckLogin";
 
 export default function Deposit(props) {
-  //State constaEnts
+  //State constants
   const [deposit, setDeposit] = useState(0.00);
-  const [error, setError] = useState(<></>);
-  const [redirect, setRedirect] = useState(<></>);
-
-
-  // TODO: Check for logged-in user
+  const [result, setResult] = useState(<></>);
   // TODO: Update Log
 
 
@@ -26,13 +23,17 @@ export default function Deposit(props) {
     //updates the users map as well
     props.setLogin(props.login);
     props.setUsers(props.users);
-    setError(<p>{props.login.balance}</p>);
-    setRedirect(<p>Success! :D</p>);
+    setResult(<p>{props.login.balance}</p>);
   }
 
-	return (
-		<div className="deposit">
-			<h1>Deposit Page</h1>
+  
+  //Checks if a user is logged in before rendering
+  return (!isLoggedIn(props.login)) ?
+    <Redirect to="/welcome"/> : 
+
+	//normal render
+    <div className="deposit">
+      <h1>Deposit Page</h1>
       <form>
         <label htmlFor="deposit-input">User Id:</label>
         <input type="number" id="deposit-input" name="deposit-input"
@@ -42,9 +43,8 @@ export default function Deposit(props) {
         
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
-      {error}
-      {redirect}
-			<Link to="/home/">Home</Link>
-		</div>
-	);
+      {result}
+      <Link to="/home/">Home</Link>
+    </div>
+  ;
 }
