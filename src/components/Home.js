@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 
-export default function Home() {
+export default function Home(props) {
+
+
+	// TODO: Check for logged-in user
+  console.log(props.login);
+
+
 	return (
 		<div className="home">
 			<p>Home Page</p>

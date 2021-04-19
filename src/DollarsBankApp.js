@@ -16,12 +16,11 @@ import TransferFunds from './components/home_pages/TransferFunds';
 
 function DollarsBankApp() {
   const [users, setUsers] = useState(new Map());
-  const [login, setLogin] = useState([]);
+  const [login, setLogin] = useState([null]);
 
   //how to add map entry:
   users.set('FooBar', {username:"FooBar", password:"password", name:"John Smith", contactNumber:"5008888888", balance:100.00, log:["Dead", "Lol"]});
-  users.set('BarFoo', {username:"BarFoo", password:"drowssap", name:"Jane Doe", contactNumber:"8885005000", balance:0.01, log:["Alive", "Deadpan"]});
-  console.log(users);
+  users.set('BarFoo', {username:"BarFoo", password:"drowssap", name:"Jane Doe", contactNumber:"8885005000", balance:200.00, log:["Alive", "Deadpan"]});
 
   return (
     <div className="App">
@@ -36,23 +35,24 @@ function DollarsBankApp() {
             <Route path="/welcome/"><Welcome/></Route>
             
             {/* Home pages */}
-            <Route path="/home/signout"><SignOut
-              setLogin={setLogin}/></Route>
+            <Route path="/home/deposit"><Deposit
+              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
+            <Route path="/home/withdraw"><Withdraw
+              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
             <Route path="/home/transferFunds"><TransferFunds
               login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
             <Route path="/home/recentTransactions"><RecentTransactions
               login={login}/></Route>
             <Route path="/home/displayInfo"><DisplayInfo
               login={login}/></Route>
-            <Route path="/home/deposit"><Deposit
-              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
-            <Route path="/home/withdraw"><Withdraw
-              login={login} setLogin={setLogin} users={users} setUsers={setUsers}/></Route>
-            <Route path="/home/"><Home/></Route>
+            <Route path="/home/signout"><SignOut
+              login={login} setLogin={setLogin}/></Route>
+            <Route path="/home/"><Home
+              login={login}/></Route>
 
-            {/* Default Website URL Behavior */}
+            {/* Empty URL Behavior */}
             <Route path="/"><SignOut
-              setLogin={setLogin}/></Route>
+              login={login} setLogin={setLogin}/></Route>
           </Switch>
         </main>
       </Router>
