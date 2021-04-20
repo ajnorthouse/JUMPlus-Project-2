@@ -1,7 +1,14 @@
 import { Redirect } from "react-router";
 import { initialLogUpdate } from "./UpdateLog";
 
-export function createUser(userId, password1, password2, name, contactNumber, balance, users, setUsers, setResult, clearInputs) {
+export function createUser(inputs, users, setUsers, setResult, clearInputs) {
+  //variables to retrofit old logic
+  let userId = inputs["User Id"];
+  let password1 = inputs["First Password"];
+  let password2 = inputs["Second Password"];
+  let name = inputs["Name"];
+  let contactNumber = inputs["Contact Number"];
+  let balance = inputs["Starting Deposit"];
 
   if (!usernameExists(users, userId)) {
   
@@ -34,7 +41,11 @@ export function createUser(userId, password1, password2, name, contactNumber, ba
   }
 }
 
-export function loginUser(userId, password, setResult, users, setLogin) {
+export function loginUser(inputs, setResult, users, setLogin) {
+  //variables to retrofit old logic
+  let userId = inputs["User Id"];
+  let password = inputs["Password"];
+  
   //checks if the username exists
   if (usernameExists(users, userId)) {
 

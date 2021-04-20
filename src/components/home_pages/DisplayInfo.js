@@ -9,39 +9,36 @@ export default function DisplayInfo(props) {
 
 	//normal render
     <div className="recent_transactions">
-      <h1>Recent Transactions Page</h1>
-
-      <ul>
-        <li>
+      <h1>Account Details:</h1>
+        <div className="username">
           <h2>Username:</h2>
           <p>{props.login.username}</p>
-        </li>
+        </div>
 
-        <li>
+        <div className="password">
           <h2>Password:</h2>
           <p>{props.login.password}</p>
-        </li>
+        </div>
 
-        <li>
+        <div className="name">
           <h2>Name:</h2>
           <p>{props.login.name}</p>
-        </li>
+        </div>
 
-        <li>
+        <div className="contact-number">
           <h2>Contact Number:</h2>
           <p>{props.login.contactNumber}</p>
-        </li>
+        </div>
 
-        <li>
+        <div className="balance">
           <h2>Current Balance:</h2>
           <p>${props.login.balance.toFixed(2)}</p>
-        </li>
+        </div>
 
-        <li>
+        <div className="total-transactions">
           <h2>Total Transactions:</h2>
           <p>{props.login.log.length}</p>
-        </li>
-      </ul>
+        </div>
       
       <Link to="/home/">Home</Link>
     </div>

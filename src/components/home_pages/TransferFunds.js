@@ -2,10 +2,11 @@ import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isLoggedIn } from "../../helpers/UsersHelper";
 import { transferMoney } from "../../helpers/BalanceHelper";
+import { hasEmptyInputs } from "../../helpers/InputHelper";
 
 export default function TransferFunds(props) {
   //State Constants
-  const [transfer, setTransfer] = useState(0.00);
+  const [transfer, setTransfer] = useState("");
   const [recepient, setRecepient] = useState("");
   const [result, setResult] = useState(<></>);
 
@@ -16,13 +17,16 @@ export default function TransferFunds(props) {
     event.preventDefault();
 
     //calls helper function
-    transferMoney(transfer, recepient, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
+	let inputs = {"Transfer Amount":transfer, "Transfer Recepient":recepient};
+    if (!hasEmptyInputs(inputs, setResult)) {
+		transferMoney(inputs, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
+    }
   }
 
   //clears the input fields on success
   const clearInputs = ()=> {
-    setTransfer(0.00);
-    setRecepient(0.00);
+    setTransfer("");
+    setRecepient("");
   }
   
   //Checks if a user is logged in before rendering
@@ -33,14 +37,16 @@ export default function TransferFunds(props) {
     <div className="transfer-funds">
       <h1>Transfer Funds</h1>
       <form>
-        <label htmlFor="transfer-input">User Id:</label>
+        <label htmlFor="transfer-input">Transfer Amount:</label>
         <input type="number" id="transfer-input" name="transfer-input"
+          placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
           value={transfer} onChange={event => setTransfer(Number(event.target.value))}></input>
         
         <br/>
 
-        <label htmlFor="recepient-input">User Id:</label>
+        <label htmlFor="recepient-input">Transfer Recepient:</label>
         <input type="text" id="recepient-input" name="recepient-input"
+		      placeholder="jsmith" title="Username of recepient"
           value={recepient} onChange={event => setRecepient(event.target.value)}></input>
         
         <br/>

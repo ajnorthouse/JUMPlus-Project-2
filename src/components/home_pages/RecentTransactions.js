@@ -11,25 +11,37 @@ export default function RecentTransactions(props) {
     <div className="recent_transactions">
       <h1>Recent Transactions Page</h1>
 
-      <ul>
-        <li>
-          <p>{props.login.log[0]}</p>
-        </li>
-        <li>
-          <p>{props.login.log[1]}</p>
-        </li>
-        <li>
-          <p>{props.login.log[2]}</p>
-        </li>
-        <li>
-          <p>{props.login.log[3]}</p>
-        </li>
-        <li>
-          <p>{props.login.log[4]}</p>
-        </li>
-      </ul>
+      <Transactions amount={5} log={props.login.log}/>
       
       <Link to="/home/">Home</Link>
     </div>
   ;
+}
+
+function Transactions(props) {
+  //gets last [amount] inserted elements
+  let log = props.log.slice(-1 * props.amount);
+
+  //determins how many times to run
+  let length = (log.length < props.amount) ?
+    log.length:
+    props.amount;
+
+  //for loop that goes over the log array backwards
+  let counter;
+  let listEntries = [];
+  for (counter = length -1; counter > -1; counter--) {
+    listEntries.push(
+      <div key={"Entry " + counter}>
+        <h2>{log[counter][0]}</h2>
+        <p>{log[counter][1]}</p>
+      </div>
+    );
+  }
+
+
+
+
+
+  return <>{listEntries}</>;
 }

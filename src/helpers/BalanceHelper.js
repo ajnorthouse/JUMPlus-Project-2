@@ -1,8 +1,8 @@
 import { depositLogUpdate, transferLogUpdate, withdrawLogUpdate } from "./UpdateLog";
 
-export function depositMoney(deposit, setResult, clearInputs, login, setLogin, users, setUsers) {
-  //first rounds number to remove uncertainty
-  deposit = roundNumber(deposit);
+export function depositMoney(inputs, setResult, clearInputs, login, setLogin, users, setUsers) {
+  //variables to retrofit old logic
+  let deposit = Number(roundNumber(inputs["Deposit Amount"]));
 
   //Adds the deposit to the account & updates log
   login.balance += deposit;
@@ -18,9 +18,9 @@ export function depositMoney(deposit, setResult, clearInputs, login, setLogin, u
   clearInputs();
 }
 
-export function withdrawMoney(withdrawl, setResult, clearInputs, login, setLogin, users, setUsers) {
-  //first rounds number to remove uncertainty
-  withdrawl = roundNumber(withdrawl);
+export function withdrawMoney(inputs, setResult, clearInputs, login, setLogin, users, setUsers) {
+  //variables to retrofit old logic
+  let withdrawl = roundNumber(Number(inputs["Withdrawl Amount"]));
 
   if (hasEnoughFunds(withdrawl, login.balance)) {
 
@@ -40,9 +40,10 @@ export function withdrawMoney(withdrawl, setResult, clearInputs, login, setLogin
   }
 }
 
-export function transferMoney(transfer, recepient, setResult, clearInputs, login, setLogin, users, setUsers) {
-  //first rounds number to remove uncertainty
-  transfer = roundNumber(transfer);
+export function transferMoney(inputs, setResult, clearInputs, login, setLogin, users, setUsers) {
+  //variables to retrofit old logic
+  let transfer = roundNumber(Number(inputs["Transfer Amount"]));
+  let recepient = inputs["Transfer Recepient"];
 
   if (!isDuplicateUsername(login, recepient)) {
 
@@ -50,7 +51,7 @@ export function transferMoney(transfer, recepient, setResult, clearInputs, login
 
       if (hasEnoughFunds(transfer, login.balance)) {
 
-        //Removes the money from the user account & updates logE
+        //Removes the money from the user account & updates log
         login.balance -= transfer;
         login.log.push(transferLogUpdate('sender', transfer, recepient, login.balance));
         users.set(login.username, login);
@@ -58,7 +59,7 @@ export function transferMoney(transfer, recepient, setResult, clearInputs, login
         //Adds the money to the recepient account & updates their log
         let recepientAccount = users.get(recepient);
         recepientAccount.balance += transfer;
-        login.log.push(transferLogUpdate('receiver', transfer, login.username, recepientAccount.balance));
+        recepientAccount.log.push(transferLogUpdate('receiver', transfer, login.username, recepientAccount.balance));
         users.set(recepientAccount.username, recepientAccount);
 
         //finally, updates the users map
