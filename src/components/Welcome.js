@@ -1,5 +1,5 @@
 import { Link, Redirect } from "react-router-dom";
-import { isLoggedIn } from "../helpers/CheckLogin";
+import { isLoggedIn } from "../helpers/UsersHelper";
 
 export default function Welcome(props) {
   //Checks if a user is logged in before rendering
