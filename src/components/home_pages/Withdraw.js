@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { isLoggedIn } from "../../helpers/CheckLogin";
-import { withdrawLogUpdate } from "../../helpers/UpdateLog";
+import { isLoggedIn } from "../../helpers/UsersHelper";
+import { withdrawMoney } from "../../helpers/BalanceHelper";
 
 export default function Withdraw(props) {
   //State Constants
@@ -10,29 +10,24 @@ export default function Withdraw(props) {
 
 
   //form submit event
-  // TODO: Check for potentially negative balances
   const handleSubmit = (event) => {
     //immediately stops default behavior
     event.preventDefault();
 
-    //Math.round((num + Number.EPSILON) * 100) / 100
+    //Calls helper function
+    withdrawMoney(withdrawl, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
+  }
 
-    //Removes the withdrawl from the account & updates log
-    props.login.balance -= withdrawl;
-	props.login.log.push(withdrawLogUpdate(withdrawl, props.login.balance));
-    props.users.set(props.login.username, props.login);
-
-    //updates the users map as well
-    props.setLogin(props.login);
-    props.setUsers(props.users);
-    setResult(<p className="is-success">Funds successfully withdrawn!</p>);
+  //clears the input fields on success
+  const clearInputs = ()=> {
+    setWithdrawl(0.00);
   }
 
   //Checks if a user is logged in before rendering
   return (!isLoggedIn(props.login)) ?
     <Redirect to="/welcome"/> : 
 
-	//normal render
+  //normal render
     <div className="withdraw">
       <h1>Withdrawl Page</h1>
       <form>

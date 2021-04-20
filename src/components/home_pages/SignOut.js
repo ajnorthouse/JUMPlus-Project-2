@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Redirect } from "react-router";
-import { isLoggedIn } from "../../helpers/CheckLogin";
+import { isLoggedIn } from "../../helpers/UsersHelper";
 
 export default function SignOut(props) {
 

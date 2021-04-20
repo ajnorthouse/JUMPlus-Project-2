@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { isLoggedIn } from "../../helpers/CheckLogin";
-import { depositLogUpdate } from "../../helpers/UpdateLog";
+import { depositMoney } from "../../helpers/BalanceHelper";
+import { isLoggedIn } from "../../helpers/UsersHelper";
 
 export default function Deposit(props) {
   //State constants
@@ -14,25 +14,20 @@ export default function Deposit(props) {
     //immediately stops default behavior
     event.preventDefault();
 
-    //Math.round((num + Number.EPSILON) * 100) / 100
-
-    //Adds the deposit to the account & updates log
-    props.login.balance += deposit;
-	props.login.log.push(depositLogUpdate(deposit, props.login.balance));
-    props.users.set(props.login.username, props.login);
-
-    //updates the users map as well
-    props.setLogin(props.login);
-    props.setUsers(props.users);
-    setResult(<p className="is-success">Funds successfully deposited!</p>);
+    //calls helper function
+    depositMoney(deposit, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
   }
 
+  //clears the input fields on success
+  const clearInputs = ()=> {
+    setDeposit(0.00);
+  }
   
   //Checks if a user is logged in before rendering
   return (!isLoggedIn(props.login)) ?
     <Redirect to="/welcome"/> : 
 
-	//normal render
+    //normal render
     <div className="deposit">
       <h1>Deposit Page</h1>
       <form>

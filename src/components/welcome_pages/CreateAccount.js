@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { isLoggedIn } from "../../helpers/CheckLogin";
-import { initialLogUpdate } from "../../helpers/UpdateLog";
+import { createUser, isLoggedIn } from "../../helpers/UsersHelper";
 
 export default function CreateAccount(props) {
   //State constants
@@ -18,32 +17,8 @@ export default function CreateAccount(props) {
     //immediately stops default behavior
     event.preventDefault();
 
-    //checks if the username does NOT exist
-    if (!props.users.has(userId)) {
-    
-      //checks that passwords match
-      if (password1 === password2) {
-
-        //inserts entry into the users list
-        props.users.set(userId, {
-          username:userId,
-          password:password1,
-          name:name,
-          contactNumber:contactNumber,
-          balance:balance,
-          log:[initialLogUpdate(balance)]
-        });
-
-        props.setUsers(props.users);
-        console.log(props.users);
-        setResult(<p className="is-success">Successfully created user '{userId}'!</p>);
-        clearInputs();
-      } else {
-        setResult(<p className="is-error">Your passwords don't match!</p>);
-      }
-    } else {
-      setResult(<p className="is-error">That username already exists!</p>);
-    }
+    //calls helper method
+	createUser(userId, password1, password2, name, contactNumber, balance, props.users, props.setUsers, setResult, clearInputs);
   }
 
   //small function to clear all the inputs after successful insertion

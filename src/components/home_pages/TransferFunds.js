@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { isLoggedIn } from "../../helpers/CheckLogin";
-import { transferLogUpdate } from "../../helpers/UpdateLog";
+import { isLoggedIn } from "../../helpers/UsersHelper";
+import { transferMoney } from "../../helpers/BalanceHelper";
 
 export default function TransferFunds(props) {
   //State Constants
@@ -11,38 +11,25 @@ export default function TransferFunds(props) {
 
 
   //form submit event
-  // TODO: Check for potentially negative balances
-  // TODO: Check if other user exists
-  // TODO: Check for duplicate username
   const handleSubmit = (event) => {
     //immediately stops default behavior
     event.preventDefault();
 
-    //Math.round((num + Number.EPSILON) * 100) / 100
-
-    //Removes the money from the user account & updates logE
-    props.login.balance -= transfer;
-	props.login.log.push(transferLogUpdate('sender', transfer, recepient, props.login.balance));
-    props.users.set(props.login.username, props.login);
-
-    //Adds the money to the recepient account & updates their log
-    let recepientAccount = props.users.get(recepient);
-    recepientAccount.balance += transfer;
-	props.login.log.push(transferLogUpdate('receiver', transfer, props.login.username, recepientAccount.balance));
-    props.users.set(recepientAccount.username, recepientAccount);
-
-    //finally, updates the users map
-    props.setLogin(props.login);
-    props.setUsers(props.users);
-    setResult(<p className="is-success">Funds successfully transferred!</p>);
+    //calls helper function
+    transferMoney(transfer, recepient, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
   }
 
+  //clears the input fields on success
+  const clearInputs = ()=> {
+    setTransfer(0.00);
+    setRecepient(0.00);
+  }
   
   //Checks if a user is logged in before rendering
   return (!isLoggedIn(props.login)) ?
     <Redirect to="/welcome"/> : 
 
-	//normal render
+    //normal render
     <div className="transfer-funds">
       <h1>Transfer Funds</h1>
       <form>
