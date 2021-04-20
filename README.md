@@ -3,21 +3,18 @@ A reimplementation of project 1, but this time using JavaScript.
 
 
 ## TODO -
-- Check for potentially negative balances (Withdraw & Transfer)
-- Check if other user exists (Transfer)
-- Check for duplicate username (Transfer)
 - CSS / UI
 - Refactor code into helper functions
-	- [] Balance Helpers:
+	- [x] Balance Helpers:
 		- [x] deposit's deposit function
-		- [~] withdraw's withdrawl
-		- [] withdraw's negative balance
-	- [] Users' Helpers:
-		- [] transfer's check duplicate name
-		- [] transfer's check other user exists
-		- [~] create user
-		- [~] login user
-		- [~] Check Login
+		- [x] withdraw's withdrawl
+		- [x] withdraw's negative balance
+	- [x] Users' Helpers:
+		- [x] transfer's check duplicate name
+		- [x] transfer's check other user exists
+		- [x] create user
+		- [x] login user
+		- [x] Check Login
 	- [x] Log's Helpers:
 		- [x] deposit 
 		- [x] withdraw 
