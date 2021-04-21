@@ -1,4 +1,5 @@
 import { Redirect } from "react-router";
+import { passwordMatchesRequirements } from "./InputHelper";
 import { initialLogUpdate } from "./UpdateLog";
 
 export function createUser(inputs, users, setUsers, setResult, clearInputs) {
@@ -15,25 +16,33 @@ export function createUser(inputs, users, setUsers, setResult, clearInputs) {
     //checks that passwords match
     if (password1 === password2) {
 
-  //inserts entry into the users list
-  users.set(userId, {
-    username:userId,
-    password:password1,
-    name:name,
-    contactNumber:contactNumber,
-    balance:balance,
-    log:[initialLogUpdate(balance)]
-  });
-  
-  //updates Users and success message
-  setUsers(users);
-  setResult(<p className="is-success">Successfully created user '{userId}'!</p>);
-  
-  //clears the fields
-  clearInputs();
+      //checks if passwords match required regex
+      if (passwordMatchesRequirements(password1)) {
+
+        //inserts entry into the users list
+        users.set(userId, {
+          username:userId,
+          password:password1,
+          name:name,
+          contactNumber:contactNumber,
+          balance:balance,
+          log:[initialLogUpdate(balance)]
+        });
+    
+        //updates Users and success message
+        setUsers(users);
+        setResult(<p className="is-success">Successfully created user '{userId}'!</p>);
+        
+        //clears the fields
+        clearInputs();
+
+  // errors
+      } else {
+        setResult(<p className="is-error">Your password doesn't meet the requirements!</p>);
+      }
 
     } else {
-  setResult(<p className="is-error">Your passwords don't match!</p>);
+      setResult(<p className="is-error">Your passwords don't match!</p>);
     }
     
   } else {
@@ -60,6 +69,7 @@ export function loginUser(inputs, setResult, users, setLogin) {
       //redirects to home page
       setResult(<Redirect to="/home/"/>);
 
+  // errors
     } else {
       setResult(<p className="is-error">Password doesn't match!</p>);
     }
