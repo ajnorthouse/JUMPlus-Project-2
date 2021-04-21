@@ -4,39 +4,55 @@ export function depositMoney(inputs, setResult, clearInputs, login, setLogin, us
   //variables to retrofit old logic
   let deposit = Number(roundNumber(inputs["Deposit Amount"]));
 
-  //Adds the deposit to the account & updates log
-  login.balance += deposit;
-  login.log.push(depositLogUpdate(deposit, login.balance));
-  users.set(login.username, login);
+  //checks if deposit is 0
+  if (deposit !== 0) {
 
-  //updates the users map as well
-  setLogin(login);
-  setUsers(users);
+    //Adds the deposit to the account & updates log
+    login.balance += deposit;
+    login.log.push(depositLogUpdate(deposit, login.balance));
+    users.set(login.username, login);
 
-  //success message
-  setResult(<p className="is-success">Funds successfully deposited!</p>);
-  clearInputs();
+    //updates the users map as well
+    setLogin(login);
+    setUsers(users);
+
+    //success message
+    setResult(<p className="is-success">Funds successfully deposited!</p>);
+    clearInputs();
+
+  // errors
+  } else {
+    setResult(<p className="is-error">Deposit can't be nothing!</p>);
+  }
 }
 
 export function withdrawMoney(inputs, setResult, clearInputs, login, setLogin, users, setUsers) {
   //variables to retrofit old logic
   let withdrawl = roundNumber(Number(inputs["Withdrawl Amount"]));
 
-  if (hasEnoughFunds(withdrawl, login.balance)) {
+  //checks if withdrawl is 0
+  if (withdrawl !== 0) {
 
-    //Removes the withdrawl from the account & updates log
-    login.balance -= withdrawl;
-    login.log.push(withdrawLogUpdate(withdrawl, login.balance));
-    users.set(login.username, login);
+    //checks if they have enough funds
+    if (hasEnoughFunds(withdrawl, login.balance)) {
   
-    //updates the users map as well
-    setLogin(login);
-    setUsers(users);
-    setResult(<p className="is-success">Funds successfully withdrawn!</p>);
-    clearInputs();
-
+      //Removes the withdrawl from the account & updates log
+      login.balance -= withdrawl;
+      login.log.push(withdrawLogUpdate(withdrawl, login.balance));
+      users.set(login.username, login);
+    
+      //updates the users map as well
+      setLogin(login);
+      setUsers(users);
+      setResult(<p className="is-success">Funds successfully withdrawn!</p>);
+      clearInputs();
+    
+  //errors
+    } else {
+      setResult(<p className="is-error">Not enough funds to make a withdrawl!</p>);
+    }
   } else {
-    setResult(<p className="is-error">Not enough funds to make a withdrawl!</p>);
+    setResult(<p className="is-error">Withdrawl can't be nothing!</p>);
   }
 }
 
@@ -45,38 +61,44 @@ export function transferMoney(inputs, setResult, clearInputs, login, setLogin, u
   let transfer = roundNumber(Number(inputs["Transfer Amount"]));
   let recepient = inputs["Transfer Recepient"];
 
-  if (!isDuplicateUsername(login, recepient)) {
+  //checks if transfer is 0
+  if (transfer !== 0) {
 
-    if (usernameExists(users, recepient)) {
+    if (!isDuplicateUsername(login, recepient)) {
 
-      if (hasEnoughFunds(transfer, login.balance)) {
+      if (usernameExists(users, recepient)) {
 
-        //Removes the money from the user account & updates log
-        login.balance -= transfer;
-        login.log.push(transferLogUpdate('sender', transfer, recepient, login.balance));
-        users.set(login.username, login);
+        if (hasEnoughFunds(transfer, login.balance)) {
 
-        //Adds the money to the recepient account & updates their log
-        let recepientAccount = users.get(recepient);
-        recepientAccount.balance += transfer;
-        recepientAccount.log.push(transferLogUpdate('receiver', transfer, login.username, recepientAccount.balance));
-        users.set(recepientAccount.username, recepientAccount);
+          //Removes the money from the user account & updates log
+          login.balance -= transfer;
+          login.log.push(transferLogUpdate('sender', transfer, recepient, login.balance));
+          users.set(login.username, login);
 
-        //finally, updates the users map
-        setLogin(login);
-        setUsers(users);
-        setResult(<p className="is-success">Funds successfully transferred!</p>);
-        clearInputs();
+          //Adds the money to the recepient account & updates their log
+          let recepientAccount = users.get(recepient);
+          recepientAccount.balance += transfer;
+          recepientAccount.log.push(transferLogUpdate('receiver', transfer, login.username, recepientAccount.balance));
+          users.set(recepientAccount.username, recepientAccount);
 
-      //all the error codes
+          //finally, updates the users map
+          setLogin(login);
+          setUsers(users);
+          setResult(<p className="is-success">Funds successfully transferred!</p>);
+          clearInputs();
+
+  //errors
+        } else {
+          setResult(<p className="is-error">Not enough funds to make a transfer!</p>);
+        }
       } else {
-        setResult(<p className="is-error">Not enough funds to make a transfer!</p>);
+        setResult(<p className="is-error">Recepient Id not found!</p>);
       }
     } else {
-      setResult(<p className="is-error">Recepient Id not found!</p>);
+      setResult(<p className="is-error">Can't transfer funds to yourself!</p>);
     }
   } else {
-    setResult(<p className="is-error">Can't transfer funds to yourself!</p>);
+    setResult(<p className="is-error">Transfer can't be nothing!</p>);
   }
 }
 
