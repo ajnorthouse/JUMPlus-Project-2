@@ -37,7 +37,7 @@ export default function DisplayInfo(props) {
 
         <div className="total-transactions">
           <h2>Total Transactions:</h2>
-          <p>{props.login.log.length}</p>
+          <p>{props.login.log.length - 1}</p>
         </div>
       
       <Link to="/home/">Home</Link>
