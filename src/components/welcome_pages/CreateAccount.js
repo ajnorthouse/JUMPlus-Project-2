@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { hasEmptyInputs } from "../../helpers/InputHelper";
+import { cleanCreate, hasEmptyInputs } from "../../helpers/InputHelper";
 import { createUser, isLoggedIn } from "../../helpers/UsersHelper";
 
 export default function CreateAccount(props) {
@@ -18,12 +18,15 @@ export default function CreateAccount(props) {
     //immediately stops default behavior
     event.preventDefault();
 
-    //calls helper method
-    let inputs = {"Name":name,"Contact Number":contactNumber,"User Id":userId,"First Password":password1,"Second Password":password2,"Starting Deposit":balance};
+    //collects and cleans inputs
+    let inputs = cleanCreate({"Name":name,"Contact Number":contactNumber,"User Id":userId,"First Password":password1,"Second Password":password2,"Starting Deposit":balance});
+
+    //checks for empty inputs, then runs logic
     if (!hasEmptyInputs(inputs, setResult)) {
+      //then attempts to create the user
       createUser(inputs, props.users, props.setUsers, setResult, clearInputs);
     }
-}
+  }
 
   //small function to clear all the inputs after successful insertion
   const clearInputs = ()=> {
@@ -39,7 +42,7 @@ export default function CreateAccount(props) {
   return (isLoggedIn(props.login)) ?
     <Redirect to="/home"/> : 
 
-	//normal render
+    //normal render
     <div className="create-account">
       <h1>Create Account</h1>
       <form>
@@ -51,36 +54,34 @@ export default function CreateAccount(props) {
         <br/><br/>
       
         <label htmlFor="contactNumber-input">Contact Number:</label>
-	      <input type="tel" id="contactNumber-input" name="contactNumber-input" 
-		      placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
-		      title="Phone Number with Area code, dashes between each set of numbers"
-		      value={contactNumber} onChange={event => setContactNumber(event.target.value)}></input>
-	  
-	      <br/><br/>
+          <input type="tel" id="contactNumber-input" name="contactNumber-input" 
+              placeholder="123-456-7890"
+              title="Phone Number with Area code, dashes between each set of numbers"
+              value={contactNumber} onChange={event => setContactNumber(event.target.value)}></input>
+      
+          <br/><br/>
 
         <label htmlFor="userId-input">User Id:</label>
         <input type="text" id="userId-input" name="userId-input"
-		      placeholder="jsmith" title="username"
+              placeholder="jsmith" title="username"
           value={userId} onChange={event => setUserId(event.target.value)}></input>
         
         <br/><br/>
 
         <label htmlFor="password-input1">Password:</label>
         <br/>
-        <input type="text" id="password-input1" name="password-input1" 
-		      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+        <input type="text" id="password-input1" name="password-input1"
           placeholder="P@ssw0rd"
           title="Password with minimum 8 characters, one number, one special character, one uppercase letter, and one lowercase letter."
           value={password1} onChange={event => setPassword1(event.target.value)}></input>
         <br/>
         <input type="text" id="password-input2" name="password-input2" 
-		      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
           placeholder="P@ssw0rd"
           title="Password with minimum 8 characters, one number, one special character, one uppercase letter, and one lowercase letter."
           value={password2} onChange={event => setPassword2(event.target.value)}></input>
         <br/>
         <ul>Must contain:
-			    <li>Minimum eight characters</li>
+                <li>Minimum eight characters</li>
           <li>at least one uppercase letter</li>
           <li>one lowercase letter</li>
           <li>one number, and </li>

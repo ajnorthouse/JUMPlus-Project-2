@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isLoggedIn } from "../../helpers/UsersHelper";
 import { transferMoney } from "../../helpers/BalanceHelper";
-import { hasEmptyInputs } from "../../helpers/InputHelper";
+import { cleanTransfer, hasEmptyInputs } from "../../helpers/InputHelper";
 
 export default function TransferFunds(props) {
   //State Constants
@@ -16,10 +16,12 @@ export default function TransferFunds(props) {
     //immediately stops default behavior
     event.preventDefault();
 
-    //calls helper function
-	let inputs = {"Transfer Amount":transfer, "Transfer Recepient":recepient};
+    //collects and cleans inputs
+    let inputs = cleanTransfer({"Transfer Amount":transfer, "Transfer Recepient":recepient});
+        
+    //checks for empty inputs, then runs logic
     if (!hasEmptyInputs(inputs, setResult)) {
-		transferMoney(inputs, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
+      transferMoney(inputs, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
     }
   }
 
@@ -46,7 +48,7 @@ export default function TransferFunds(props) {
 
         <label htmlFor="recepient-input">Transfer Recepient:</label>
         <input type="text" id="recepient-input" name="recepient-input"
-		      placeholder="jsmith" title="Username of recepient"
+              placeholder="jsmith" title="Username of recepient"
           value={recepient} onChange={event => setRecepient(event.target.value)}></input>
         
         <br/>

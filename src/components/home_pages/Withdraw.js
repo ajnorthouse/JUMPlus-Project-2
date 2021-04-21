@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { isLoggedIn } from "../../helpers/UsersHelper";
 import { withdrawMoney } from "../../helpers/BalanceHelper";
-import { hasEmptyInputs } from "../../helpers/InputHelper";
+import { cleanWithdrawl, hasEmptyInputs } from "../../helpers/InputHelper";
 
 export default function Withdraw(props) {
   //State Constants
@@ -15,8 +15,10 @@ export default function Withdraw(props) {
     //immediately stops default behavior
     event.preventDefault();
 
-    //Calls helper function
-    let inputs = {"Withdrawl Amount":withdrawl};
+    //collects and cleans inputs
+    let inputs = cleanWithdrawl({"Withdrawl Amount":withdrawl});
+        
+    //checks for empty inputs, then runs logic
     if (!hasEmptyInputs(inputs, setResult)) {
       withdrawMoney(inputs, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
     }
@@ -37,7 +39,7 @@ export default function Withdraw(props) {
       <form>
         <label htmlFor="withdrawl-input">Withdrawl Amount:</label>
         <input type="number" id="withdrawl-input" name="withdrawl-input"
-		  placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
+              placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
           value={withdrawl} onChange={event => setWithdrawl(Number(event.target.value))}></input>
         
         <br/>

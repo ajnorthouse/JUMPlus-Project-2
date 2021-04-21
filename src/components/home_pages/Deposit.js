@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { depositMoney } from "../../helpers/BalanceHelper";
-import { hasEmptyInputs } from "../../helpers/InputHelper";
+import { cleanDeposit, hasEmptyInputs } from "../../helpers/InputHelper";
 import { isLoggedIn } from "../../helpers/UsersHelper";
 
 export default function Deposit(props) {
@@ -15,10 +15,12 @@ export default function Deposit(props) {
     //immediately stops default behavior
     event.preventDefault();
 
-    //calls helper functions
-	let inputs = {"Deposit Amount":deposit};
+    //collects and cleans inputs
+    let inputs = cleanDeposit({"Deposit Amount":deposit});
+    
+    //checks for empty inputs, then runs logic
     if (!hasEmptyInputs(inputs, setResult)) {
-		depositMoney(inputs, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
+      depositMoney(inputs, setResult, clearInputs, props.login, props.setLogin, props.users, props.setUsers);
     }
   }
 
@@ -37,7 +39,7 @@ export default function Deposit(props) {
       <form>
         <label htmlFor="deposit-input">Deposit Amount:</label>
         <input type="number" id="deposit-input" name="deposit-input"
-		      placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
+          placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
           value={deposit} onChange={event => setDeposit(Number(event.target.value))}></input>
         
         <br/>
