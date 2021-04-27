@@ -8,7 +8,7 @@ export default function TransferFunds(props) {
   //State Constants
   const [transfer, setTransfer] = useState("");
   const [recepient, setRecepient] = useState("");
-  const [result, setResult] = useState(<></>);
+  const [result, setResult] = useState(<div></div>);
 
 
   //form submit event
@@ -40,10 +40,12 @@ export default function TransferFunds(props) {
       <h1>Transfer Funds</h1>
       <form>
         <label htmlFor="transfer-input">Transfer Amount:</label>
-        <input type="number" id="transfer-input" name="transfer-input"
-          placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
-          value={transfer} onChange={event => setTransfer(Number(event.target.value))}></input>
-        
+		
+		<div className="currency-input">
+			<input type="number" id="transfer-input" name="transfer-input"
+			placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
+			value={transfer} onChange={event => setTransfer(Number(event.target.value))}></input>
+        </div>
         <br/>
 
         <label htmlFor="recepient-input">Transfer Recepient:</label>
@@ -56,7 +58,7 @@ export default function TransferFunds(props) {
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
       {result}
-      <Link to="/home/">Home</Link>
+      <div className="return-link"><Link to="/home/">Return</Link></div>
     </div>
   ;
 }

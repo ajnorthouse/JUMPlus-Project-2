@@ -7,7 +7,7 @@ import { isLoggedIn } from "../../helpers/UsersHelper";
 export default function Deposit(props) {
   //State constants
   const [deposit, setDeposit] = useState("");
-  const [result, setResult] = useState(<></>);
+  const [result, setResult] = useState(<div></div>);
 
 
   //form submit event
@@ -38,16 +38,17 @@ export default function Deposit(props) {
       <h1>Deposit Page</h1>
       <form>
         <label htmlFor="deposit-input">Deposit Amount:</label>
-        <input type="number" id="deposit-input" name="deposit-input"
-          placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
-          value={deposit} onChange={event => setDeposit(Number(event.target.value))}></input>
-        
+		<div className="currency-input">
+			<input type="number" id="deposit-input" name="deposit-input"
+			placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
+			value={deposit} onChange={event => setDeposit(Number(event.target.value))}></input>
+		</div>
         <br/>
         
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
       {result}
-      <Link to="/home/">Home</Link>
+      <div className="return-link"><Link to="/home/">Return</Link></div>
     </div>
   ;
 }

@@ -7,7 +7,7 @@ import { cleanWithdrawl, hasEmptyInputs } from "../../helpers/InputHelper";
 export default function Withdraw(props) {
   //State Constants
   const [withdrawl, setWithdrawl] = useState("");
-  const [result, setResult] = useState(<></>);
+  const [result, setResult] = useState(<div></div>);
 
 
   //form submit event
@@ -38,16 +38,18 @@ export default function Withdraw(props) {
       <h1>Withdrawl Page</h1>
       <form>
         <label htmlFor="withdrawl-input">Withdrawl Amount:</label>
-        <input type="number" id="withdrawl-input" name="withdrawl-input"
-              placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
-          value={withdrawl} onChange={event => setWithdrawl(Number(event.target.value))}></input>
+		<div className="currency-input">
+			<input type="number" id="withdrawl-input" name="withdrawl-input" 
+				placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
+				value={withdrawl} onChange={event => setWithdrawl(Number(event.target.value))}></input>
+		</div>
         
         <br/>
         
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
       {result}
-      <Link to="/home/">Home</Link>
+      <div className="return-link"><Link to="/home/">Home</Link></div>
     </div>
   ;
 }

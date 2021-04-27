@@ -11,7 +11,7 @@ export default function CreateAccount(props) {
   const [name, setName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [balance, setBalance] = useState("");
-  const [result, setResult] = useState(<></>);
+  const [result, setResult] = useState(<div></div>);
 
   //form event
   const handleSubmit = (event) => {
@@ -61,15 +61,14 @@ export default function CreateAccount(props) {
       
           <br/><br/>
 
-        <label htmlFor="userId-input">User Id:</label>
+        <label htmlFor="userId-input">User Id: </label>
         <input type="text" id="userId-input" name="userId-input"
               placeholder="jsmith" title="username"
           value={userId} onChange={event => setUserId(event.target.value)}></input>
         
         <br/><br/>
 
-        <label htmlFor="password-input1">Password:</label>
-        <br/>
+        <label htmlFor="password-input1">Password: </label>
         <input type="text" id="password-input1" name="password-input1"
           placeholder="P@ssw0rd"
           title="Password with minimum 8 characters, one number, one special character, one uppercase letter, and one lowercase letter."
@@ -80,26 +79,28 @@ export default function CreateAccount(props) {
           title="Password with minimum 8 characters, one number, one special character, one uppercase letter, and one lowercase letter."
           value={password2} onChange={event => setPassword2(event.target.value)}></input>
         <br/>
-        <ul>Must contain:
-                <li>Minimum eight characters</li>
-          <li>at least one uppercase letter</li>
-          <li>one lowercase letter</li>
-          <li>one number, and </li>
-          <li>one special character.</li>
+        <ul>
+          <p>Your Password Must Contain:</p>
+          <li>Eight total characters</li>
+          <li>One uppercase letter</li>
+          <li>One lowercase letter</li>
+          <li>One number (0-9)</li>
+          <li>One special character</li>
         </ul>
         <br/><br/>
 
         <label htmlFor="balance-input">Starting Deposit:</label> 
-        <input type="number" id="balance-input" name="balance-input"
-          placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
-          value={balance} onChange={event => setBalance(Number(event.target.value))}></input>
-      
+		    <div className="currency-input">
+          <input type="number" id="balance-input" name="balance-input" 
+            placeholder="0.01" title="Dollar.Cent amount" min=".01" step=".01"
+            value={balance} onChange={event => setBalance(Number(event.target.value))}></input>
+        </div>
         <br/><br/>
         
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
       {result}
-      <Link to="/welcome/">Go Back</Link>
+      <div className="return-link"><Link to="/welcome/">Go Back</Link></div>
     </div>
   ;
 }

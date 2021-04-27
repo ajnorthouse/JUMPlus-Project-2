@@ -40,7 +40,7 @@ export default function DisplayInfo(props) {
           <p>{props.login.log.length - 1}</p>
         </div>
       
-      <Link to="/home/">Home</Link>
+      <div className="return-link"><Link to="/home/">Return</Link></div>
     </div>
   ;
 }

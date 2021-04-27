@@ -8,7 +8,7 @@ export default function Login(props) {
   //State constants
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-  const [result, setResult] = useState(<></>);
+  const [result, setResult] = useState(<div></div>);
 
   //form submit event
   const handleSubmit = (event) => {
@@ -50,7 +50,7 @@ export default function Login(props) {
         <button type="submit" onClick={handleSubmit}>Submit</button>
       </form>
       {result}
-      <Link to="/welcome/">Go Back</Link>
+      <div className="return-link"><Link to="/welcome/">Go Back</Link></div>
     </div>
   ;
 }

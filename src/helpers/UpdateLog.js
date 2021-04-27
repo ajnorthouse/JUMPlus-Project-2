@@ -2,12 +2,12 @@ const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 export function depositLogUpdate(amount, balance) {
-  let message = "Deposited $" + Number(amount).toFixed(2) + ", bringing the Balance to: $" + Number(balance).toFixed(2);
+  let message = "Deposited $" + Number(amount).toFixed(2) + ", bringing the balance to: $" + Number(balance).toFixed(2);
   return [currentDateTime(), message];
 }
 
 export function withdrawLogUpdate(amount, balance) {
-  let message = "Withdrew $" + Number(amount).toFixed(2) + ", bringing the Balance to: $" + Number(balance).toFixed(2);
+  let message = "Withdrew $" + Number(amount).toFixed(2) + ", bringing the balance to: $" + Number(balance).toFixed(2);
   return [currentDateTime(), message];
 }
 
@@ -16,12 +16,12 @@ export function transferLogUpdate(role, amount, transferId, balance) {
 
   switch (role) {
     case 'receiver':
-      message = "Received $" + Number(amount).toFixed(2) + " from " + transferId + ", bringing the Balance to: $" + Number(balance).toFixed(2);;
+      message = "Received $" + Number(amount).toFixed(2) + " from " + transferId + ", bringing the balance to: $" + Number(balance).toFixed(2);;
       break;
     
     case 'sender':
     default:
-      message = "Transfered $" + Number(amount).toFixed(2) + " to " + transferId + ", bringing the Balance to: $" + Number(balance).toFixed(2);
+      message = "Transfered $" + Number(amount).toFixed(2) + " to " + transferId + ", bringing the balance to: $" + Number(balance).toFixed(2);
       break;
   }
 

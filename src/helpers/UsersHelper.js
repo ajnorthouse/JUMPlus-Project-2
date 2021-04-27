@@ -31,22 +31,22 @@ export function createUser(inputs, users, setUsers, setResult, clearInputs) {
     
         //updates Users and success message
         setUsers(users);
-        setResult(<p className="is-success">Successfully created user '{userId}'!</p>);
+        setResult(<div className="is-success"><p>Successfully created user '{userId}'!</p></div>);
         
         //clears the fields
         clearInputs();
 
   // errors
       } else {
-        setResult(<p className="is-error">Your password doesn't meet the requirements!</p>);
+        setResult(<div className="is-error"><p>Your password doesn't meet the requirements!</p></div>);
       }
 
     } else {
-      setResult(<p className="is-error">Your passwords don't match!</p>);
+      setResult(<div className="is-error"><p>Your passwords don't match!</p></div>);
     }
     
   } else {
-    setResult(<p className="is-error">That username already exists!</p>);
+    setResult(<div className="is-error"><p>That username already exists!</p></div>);
   }
 }
 
@@ -71,11 +71,11 @@ export function loginUser(inputs, setResult, users, setLogin) {
 
   // errors
     } else {
-      setResult(<p className="is-error">Password doesn't match!</p>);
+      setResult(<div className="is-error"><p>Password doesn't match!</p></div>);
     }
 
   } else {
-    setResult(<p className="is-error">Username not found!</p>);
+    setResult(<div className="is-error"><p>Username not found!</p></div>);
   }
 }
 

@@ -17,12 +17,12 @@ export function depositMoney(inputs, setResult, clearInputs, login, setLogin, us
     setUsers(users);
 
     //success message
-    setResult(<p className="is-success">Funds successfully deposited!</p>);
+    setResult(<div className="is-success"><p>Funds successfully deposited!</p></div>);
     clearInputs();
 
   // errors
   } else {
-    setResult(<p className="is-error">Deposit can't be nothing!</p>);
+    setResult(<div className="is-error"><p>Deposit can't be nothing!</p></div>);
   }
 }
 
@@ -44,15 +44,15 @@ export function withdrawMoney(inputs, setResult, clearInputs, login, setLogin, u
       //updates the users map as well
       setLogin(login);
       setUsers(users);
-      setResult(<p className="is-success">Funds successfully withdrawn!</p>);
+      setResult(<div className="is-success"><p>Funds successfully withdrawn!</p></div>);
       clearInputs();
     
   //errors
     } else {
-      setResult(<p className="is-error">Not enough funds to make a withdrawl!</p>);
+      setResult(<div className="is-error"><p>Not enough funds to make a withdrawl!</p></div>);
     }
   } else {
-    setResult(<p className="is-error">Withdrawl can't be nothing!</p>);
+    setResult(<div className="is-error"><p>Withdrawl can't be nothing!</p></div>);
   }
 }
 
@@ -84,21 +84,21 @@ export function transferMoney(inputs, setResult, clearInputs, login, setLogin, u
           //finally, updates the users map
           setLogin(login);
           setUsers(users);
-          setResult(<p className="is-success">Funds successfully transferred!</p>);
+          setResult(<div className="is-success"><p>Funds successfully transferred!</p></div>);
           clearInputs();
 
   //errors
         } else {
-          setResult(<p className="is-error">Not enough funds to make a transfer!</p>);
+          setResult(<div className="is-error"><p>Not enough funds to make a transfer!</p></div>);
         }
       } else {
-        setResult(<p className="is-error">Recepient Id not found!</p>);
+        setResult(<div className="is-error"><p>Recepient Id not found!</p></div>);
       }
     } else {
-      setResult(<p className="is-error">Can't transfer funds to yourself!</p>);
+      setResult(<div className="is-error"><p>Can't transfer funds to yourself!</p></div>);
     }
   } else {
-    setResult(<p className="is-error">Transfer can't be nothing!</p>);
+    setResult(<div className="is-error"><p>Transfer can't be nothing!</p></div>);
   }
 }
 

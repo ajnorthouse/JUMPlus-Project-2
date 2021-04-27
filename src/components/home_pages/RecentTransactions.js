@@ -13,7 +13,7 @@ export default function RecentTransactions(props) {
 
       <Transactions amount={5} log={props.login.log}/>
       
-      <Link to="/home/">Home</Link>
+      <div className="return-link"><Link to="/home/">Return</Link></div>
     </div>
   ;
 }
@@ -32,16 +32,12 @@ function Transactions(props) {
   let listEntries = [];
   for (counter = length -1; counter > -1; counter--) {
     listEntries.push(
-      <div key={"Entry " + counter}>
+      <div className="transaction-entry" key={"Entry " + counter}>
         <h2>{log[counter][0]}</h2>
         <p>{log[counter][1]}</p>
       </div>
     );
   }
-
-
-
-
 
   return <>{listEntries}</>;
 }
