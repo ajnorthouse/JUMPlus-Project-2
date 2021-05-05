@@ -1,135 +1,138 @@
 html {
-  text-align: left;
-  background-color: #E9EBED;
-  padding: 0em 1em 1em 1em;
-  font-size: large;
-}
-
-h1 {
-  font-family: 'Aclonica';
-  font-size: 3em;
+	text-align: left;
+	background-image: url("resources/white-wall.png");
+	background-color: #E9EBED;
+	padding: 0em 1em 1em 1em;
+	font-size: large;
+  }
+  
+  /* <a href="https://www.freepik.com/photos/background">Background photo created by kues1 - www.freepik.com</a> */
+  
+  h1 {
+	font-family: 'Aclonica';
+	font-size: 3em;
+	  text-align: center;
+	font-variant: small-caps;
+	font-weight: 600;
+	color: #343330;
+  }
+  
+  .transaction-entry h2 {
+	margin-bottom: 0;
+	  text-align: left;
+	font-variant: small-caps;
+	font-weight: normal;
+	color: #A3B26C;
+  }
+  
+  .transaction-entry p {
+	margin-top: 0;
+	  text-align: left;
+	font-weight: 375;
+	color: #343330;
+  }
+  
+  label {
+	color: #3A405A;
+	display: block;
+	font-weight: bold;
+  }
+  
+  input {
+	display: block;
+	box-sizing: border-box;
+	border: #CCD5AE .33em solid;
+	color: #545E31;
+	width: 100%;
+	font-size: large;
+	  padding: .33em 1em;
+  }
+  
+  input::placeholder {
+	color: gray;
+  }
+  
+  button {
+	padding: .8em 1.3em;
+	color: #F4F3F6;
+	background-color: #6e6a8a;
+	border: #797F99 .2em solid;
+	display: inline-block;
+	box-sizing: border-box;
+	font-size: large;
+	border-radius: .33em;
+  }
+  
+  form {
+	padding: 1em;
+	border: .4em outset #d8d2bb;
+	background-color: #F6EDCC;
+	box-sizing: border-box;
+	margin-bottom: 1em;
+  }
+  
+  ul {
+	list-style-type: none;
+	list-style-position: inside;
+	margin-left: 0;
+	padding-left: 0;
+  }
+  ul p {
+	margin-bottom: 0;
+	color: #545E31;
+	text-decoration: underline;
+	text-decoration-color: #A3B26C;
+	font-weight: 700;
+  }
+  ul > li:before {
+	display: inline-block;
+	content: "-";
+	color:#A3B26C;
+	font-weight: bolder;
+	width: 1em;
+  }
+  
+  .return-link {
 	text-align: center;
-  font-variant: small-caps;
-  font-weight: 600;
-  color: #343330;
-}
-
-.transaction-entry h2 {
-  margin-bottom: 0;
-	text-align: left;
-  font-variant: small-caps;
-  font-weight: normal;
-  color: #A3B26C;
-}
-
-.transaction-entry p {
-  margin-top: 0;
-	text-align: left;
-  font-weight: 375;
-  color: #343330;
-}
-
-label {
-  color: #3A405A;
-  display: block;
-  font-weight: bold;
-}
-
-input {
-  display: block;
-  box-sizing: border-box;
-  border: #CCD5AE .33em solid;
-  color: #545E31;
-  width: 100%;
-  font-size: large;
-	padding: .33em 1em;
-}
-
-input::placeholder {
-  color: gray;
-}
-
-button {
-  padding: .8em 1.3em;
-  color: #c3c7d9;
-  background-color: #50587C;
-  border: #797F99 .2em solid;
-  display: inline-block;
-  box-sizing: border-box;
-  font-size: large;
-  border-radius: .33em;
-}
-
-form {
-  padding: 1em;
-  border: .4em outset #d8d2bb;
-  background-color: #F6EDCC;
-  box-sizing: border-box;
-  margin-bottom: 1em;
-}
-
-ul {
-  list-style-type: none;
-  list-style-position: inside;
-  margin-left: 0;
-  padding-left: 0;
-}
-ul p {
-  margin-bottom: 0;
-  color: #545E31;
-  text-decoration: underline;
-  text-decoration-color: #A3B26C;
-  font-weight: 700;
-}
-ul > li:before {
-  display: inline-block;
-  content: "-";
-  color:#A3B26C;
-  font-weight: bolder;
-  width: 1em;
-}
-
-.return-link {
-  text-align: center;
-}
-
-a {
-  padding: .8em 1.3em;
-  border: #A3B26C .2em solid;
-  display: inline-block;
-  background-color: #CCD5AE;
-  text-decoration: none;
-  text-transform: capitalize;
-  width: 66%;
-}
-
-.welcome, .home {
-  text-align: center;
-}
-
-.welcome a, .home a {
-  border-radius: 0em;
-  margin-bottom: 1em;
-}
-
-.currency-input {
-	position: relative;
-}
-.currency-input:before {
-	position: absolute;
-  content: "$";
-  left: .7em;
-	top: .55em;
-}
-
-.is-error {
-  text-align: center;
-  color: #DE3C4B;
-  font-weight: bold;
-}
-
-.is-success {
-  text-align: center;
-  color: #447604;
-  font-weight: bold;
-}
+  }
+  
+  a {
+	padding: .8em 1.3em;
+	border: #A3B26C .2em solid;
+	display: inline-block;
+	background-color: #CCD5AE;
+	text-decoration: none;
+	text-transform: capitalize;
+	width: 66%;
+  }
+  
+  .welcome, .home {
+	text-align: center;
+  }
+  
+  .welcome a, .home a {
+	border-radius: 0em;
+	margin-bottom: 1em;
+  }
+  
+  .currency-input {
+	  position: relative;
+  }
+  .currency-input:before {
+	  position: absolute;
+	content: "$";
+	left: .7em;
+	  top: .55em;
+  }
+  
+  .is-error {
+	text-align: center;
+	color: #DE3C4B;
+	font-weight: bold;
+  }
+  
+  .is-success {
+	text-align: center;
+	color: #447604;
+	font-weight: bold;
+  }
